@@ -5,6 +5,7 @@
 
 #ifdef __APPLE__
 #include <fcntl.h>
+#include <unistd.h>
 #endif
 
 #ifdef _LARGEFILE64_SOURCE
