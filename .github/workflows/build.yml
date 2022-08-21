@@ -18,32 +18,6 @@ permissions:
   contents: write
 
 jobs:
-  doxygen:
-    if: github.event_name != 'pull_request'
-    name: Doxygen
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: true
-
-      - name: Generate docs
-        uses: mattnotmitt/doxygen-action@v1.9.2
-        with:
-          doxyfile-path: ./doxygen/Doxyfile
-          working-directory: ./
-
-      - name: Debug
-        run: tree -aI .
-
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          publish_dir: ./doxygen/out/html
-          destination_dir: ${{ github.ref_name }}
-          external_repository: aui-framework/aui-framework.github.io
-          publish_branch: main
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
 
   # build-android:
   #  name: "Android"
