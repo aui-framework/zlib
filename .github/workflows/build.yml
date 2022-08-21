@@ -97,6 +97,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           allowUpdates: true
           name: ${{ github.ref }}
+          tag: ${{ github.ref }}
           commit: ${{ steps.extract_branch.outputs.branch }}
     outputs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
