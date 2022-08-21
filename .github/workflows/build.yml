@@ -96,7 +96,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           allowUpdates: true
-          name: ${{ github.ref }}
+          name: ${{ steps.extract_branch.outputs.branch }}
           tag: ${{ github.ref }}
           commit: ${{ steps.extract_branch.outputs.branch }}
 
@@ -129,7 +129,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           allowUpdates: true
-          name: ${{ github.ref }}
+          name: ${{ steps.extract_branch.outputs.branch }}
           tag: ${{ github.ref }}
           commit: ${{ steps.extract_branch.outputs.branch }}
           artifacts: "*.tar.gz"
