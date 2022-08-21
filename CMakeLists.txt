@@ -216,7 +216,7 @@ endif()
 # aui.boot precompiled binaries
 file(
         DOWNLOAD
-        https://raw.githubusercontent.com/aui-framework/aui/develop/aui.boot.cmake
+        https://raw.githubusercontent.com/aui-framework/aui/master/aui.boot.cmake
         ${CMAKE_CURRENT_BINARY_DIR}/aui.boot.cmake)
 include(${CMAKE_CURRENT_BINARY_DIR}/aui.boot.cmake)
 
