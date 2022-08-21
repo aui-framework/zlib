@@ -81,7 +81,7 @@ jobs:
           name: ${{ matrix.os }} ${{ matrix.shared_or_static }} ${{ matrix.debug_or_release }}
 
   release:
-    if: contains(github.ref, 'tags/v')
+    #if: contains(github.ref, 'tags/v')
     runs-on: ubuntu-latest
     needs: build-desktop
 
@@ -100,7 +100,7 @@ jobs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
 
   publish:
-    if: contains(github.ref, 'tags/v')
+    #if: contains(github.ref, 'tags/v')
     name: Publish ${{ matrix.os }} ${{ matrix.shared_or_static }} ${{ matrix.debug_or_release }}
     runs-on: ubuntu-latest
     strategy:
