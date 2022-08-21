@@ -1,7 +1,17 @@
-cmake_minimum_required(VERSION 2.4.4)
+cmake_minimum_required(VERSION 3.16)
 set(CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS ON)
 
 project(zlib C)
+
+
+# aui.boot precompiled binaries
+file(
+        DOWNLOAD
+        https://raw.githubusercontent.com/aui-framework/aui/develop/aui.boot.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/aui.boot.cmake)
+include(${CMAKE_CURRENT_BINARY_DIR}/aui.boot.cmake)
+
+auib_precompiled_binaries()
 
 set(VERSION "1.2.11")
 option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
