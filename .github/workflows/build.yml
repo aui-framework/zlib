@@ -99,8 +99,6 @@ jobs:
           name: ${{ github.ref }}
           tag: ${{ github.ref }}
           commit: ${{ steps.extract_branch.outputs.branch }}
-    outputs:
-      upload_url: ${{ steps.create_release.outputs.upload_url }}
 
   publish:
     #if: contains(github.ref, 'tags/v')
@@ -121,16 +119,17 @@ jobs:
           path: ./
           name: ${{ matrix.os }} ${{ matrix.shared_or_static }} ${{matrix.debug_or_release }}
 
-      - id: getfilename
-        run: echo "::set-output name=file::$(ls *.tar.gz)"
-
-      - name: Upload to Release
-        id: upload_to_release
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+      - name: Upload Release
+        id: create_release
+        uses: ncipollo/release-action@v1.10.0
         with:
-          upload_url: ${{ needs.release.outputs.upload_url }}
-          asset_path: ${{ steps.getfilename.outputs.file }}
-          asset_name: ${{ steps.getfilename.outputs.file }}
-          asset_content_type: application/x-gtar
+          token: ${{ secrets.GITHUB_TOKEN }}
+          allowUpdates: true
+          name: ${{ github.ref }}
+          tag: ${{ github.ref }}
+          commit: ${{ steps.extract_branch.outputs.branch }}
+          artifacts: "*.tar.gz"
