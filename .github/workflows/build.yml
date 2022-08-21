@@ -86,16 +86,18 @@ jobs:
     needs: build-desktop
 
     steps:
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
       - name: Create Release
         id: create_release
-        uses: actions/create-release@v1.1.4
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: ncipollo/release-action@v1.10.0
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+          allowUpdates: true
+          name: ${{ github.ref }}
+          commit: ${{ steps.extract_branch.outputs.branch }}
     outputs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
 
